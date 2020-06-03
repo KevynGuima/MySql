@@ -1,0 +1,81 @@
+create database biblioteca;
+use biblioteca;
+create table aluno(
+-> ra int primary key auto_increment,
+-> turma varchar(15),
+-> telfixo char(10),
+-> telcel char(12),
+-> email varchar(100),
+-> nome varchar(80),
+-> dataNascimento date);
+Set foreign_key_checks = 0;
+insert into aluno (nome,email,turma,telcel,dataNascimento) values
+('Vinicius','vinicius.rodriguez2@etec.sp.gov.br','1c','11946587903','2005-09-24'),
+('Vitor','vitor.cruz39@etec.sp.gov.br','1c','11911220990','2005-07-16'),
+('Enzo','enzo.melo3@etec.sp.gov.br','1c','11945456677','2005-08-23'),
+('Yuri','yuri.jorge@etec.sp.gov.br','1c','11922333412','2005-04-21'),
+('Gabriel','gabriel.sampaio@etec.sp.gov.br','1c','11956560909','2005-08-18'),
+('Gabryel','gabryel.silva5@etec.sp.gov.br','1c','11912122323','2005-02-29'),
+('Pedro','pedro.machado44@etec.sp.gov.br','1c','11955127788','2005-01-05'),
+('Miguel','miguel.souza21@etec.sp.gov.br','1c','11956668901','2005-10-09'),
+('Patrick','patrick.miranda2@etec.sp.gov.br','1c','11910106776','2005-09-10'),
+('Andrey','andrey.araujo01@etec.sp.gov.br','1c','11934346767','2005-12-05');
+Set foreign_key_checks = 1;
+
+create table bibliotecario(
+-> codBibliotecario int primary key auto_increment,
+-> email varchar(100),
+-> dataNascimento date,
+-> nome varchar(100),
+-> rg varchar(12),
+-> cpf char(11),
+-> telefone varchar(12), 
+-> bairro varchar(20),
+-> cidade varchar(25),
+-> uf char(2),
+-> cep char(8),
+-> logradouro varchar(100),
+-> complemento varchar(200),
+-> num varchar(6));
+Set foreign_key_checks = 0;
+insert into bibliotecario (email,dataNascimento,nome,rg,cpf,telefone,bairro,cidade,uf,cep,logradouro,complemento,num) values
+('marcos.toro07@gmail.com','1980-08-20','Mascos Torola','3456709809','88977855509','11923768989','Casa Verde','São Paulo','sp','12345000','Estatua de Ferro','Portão Marrom','Casa da direita','7899'),
+('joão.ASantos8957@gmail.com','1975-04-27','João Alvis dos Santos','45678678x2','23443266687','15923095656','Furnas','São Paulo','sp','56564994','Maior Predio','Perto da Pracinha','10ºandar','46'),
+('maria.amante.garcia@gmail.com','1960-01-25','Maria Amante Garcia','1234b6784x','34856778503','16919456767','Jardim das Laranjeiras','São Paulo','sp','54321111','Estatua de Ferro','Portão Vermelho','Casa da esquerda','230F');
+Set foreign_key_checks = 1;
+
+create table livro(
+-> idlivro int primary key auto_increment,
+-> titulo varchar(50),
+-> qtdepaginas int,
+-> genero varchar(60),
+-> autor varchar(100),
+-> editora varchar(100));
+Set foreign_key_checks = 0;
+insert into livro (titulo,qtdepaginas,genero,autor,editora) values
+('O Pequeno Principe','96','juvenil,Novela','Antoin de Saint-Exupéry','Éditions Gallimard'),
+('O Menino Maluquinho','64','Humor,Infantil','Ziraldo','Globinho'),
+('A Ilha do Tesouro','213','Aventura,Família','Robert L. Stevenson','Cassaell and Company'),
+('Moby Dick','656','Aventura','Herman Melville','Cosac & Naify'),
+('Dom Quixote','863','Aventura','Miguel de Cervantes Saavedra','Livraria José Olympio'),
+('Sonho de Uma Noite de Verão','112','Comedia','William Shakespeare','Martin Claret'),
+('Harry Potter e a Pedra Filosofal','223','Literatura Fantstica,Drama,Misterio,Suspense','','J.K.Rolling');
+Set foreign_key_checks = 1;
+
+create table emprestimo_devolucao(
+-> codEmprestimo int primary key auto_increment,
+-> data_emprestimo date,
+-> data_devolucao date,
+-> ra int,
+-> codBibliotecario int,
+-> codLivro int,
+-> foreign key(ra) references aluno(ra),
+-> foreign key(codBibliotecario) references bibliotecario(codBibliotecario),
+-> foreign key(codLivro) references livro(idLivro));
+Set foreign_key_checks = 0;
+insert into emprestimo_devolucao(data_emprestimo,data_devolucao) values
+('2020-02-26','2020-03-26'),
+('2020-03-15','2020-03-01'),
+('2020-03-16','2020-04-16'),
+('2019-14-12','2019-14-26');
+Set foreign_key_checks = 1;
